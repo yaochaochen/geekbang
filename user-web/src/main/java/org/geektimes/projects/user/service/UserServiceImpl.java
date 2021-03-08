@@ -1,13 +1,21 @@
 package org.geektimes.projects.user.service;
 
 import org.geektimes.projects.user.domain.User;
-import org.geektimes.projects.user.sql.DBConnectionManager;
+import org.geektimes.projects.user.repository.UserRepository;
 
 public class UserServiceImpl implements UserService {
 
+
+    private final UserRepository userRepository;
+
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     @Override
     public boolean register(User user) {
-        return false;
+
+        return userRepository.save(user);
     }
 
     @Override
@@ -27,6 +35,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User queryUserByNameAndPassword(String name, String password) {
-        return null;
+
+        return userRepository.getByNameAndPassword(name, password);
     }
 }
